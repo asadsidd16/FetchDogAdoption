@@ -1,4 +1,9 @@
 import { useState } from "react";
+import { login } from "../services/api";
+import { useNavigate } from "react-router-dom";
+
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -6,31 +11,49 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmitLogin = () => {
-    console.log("hit");
+  const navigate = useNavigate();
+
+  const handleSubmitLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      await login(name, email);
+      navigate("/home");
+    } catch (error) {
+      setError((error as Error).message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
       <h2>Login</h2>
       <div>
-        <form onSubmit={handleSubmitLogin}>
-          <input
-            required
-            type="text"
-            placeholder="Enter Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></input>
-          <input
-            required
-            type="text"
-            placeholder="Enter Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-          <button disabled={loading}>Login</button>
-        </form>
+        <TextField
+          required
+          label="Name"
+          variant="filled"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        ></TextField>
+        <TextField
+          required
+          label="Email"
+          variant="filled"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></TextField>
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+        <Button
+          variant="contained"
+          disabled={loading}
+          loading={loading}
+          onClick={handleSubmitLogin}
+        >
+          Login
+        </Button>
       </div>
     </div>
   );
