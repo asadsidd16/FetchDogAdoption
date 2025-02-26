@@ -5,4 +5,10 @@ export interface Dog {
     age: number;
     zip_code: string;
     breed: string;
-  }
+}
+
+export type DogSearchResponse = {
+  next: string;
+  resultIds: string[];
+  total: number;
+};
