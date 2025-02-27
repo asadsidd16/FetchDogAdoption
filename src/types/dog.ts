@@ -12,3 +12,13 @@ export type DogSearchResponse = {
   resultIds: string[];
   total: number;
 };
+
+export type FetchDogsParams = {
+  breeds?: string[];
+  zipCodes?: string[];
+  ageMin?: number;
+  ageMax?: number;
+  size?: number;
+  from?: string;
+  sort?: string;
+}

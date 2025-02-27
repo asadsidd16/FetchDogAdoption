@@ -18,3 +18,12 @@ export const fetchDogsData = async (ids: string[]): Promise<Dog[]> => {
         throw new Error("Cant fetch dogs...")
     }
 }
+
+export const fetchDogsBreed = async (): Promise<Dog[]> => {
+    try{
+        const res = await api.get("/dogs/breeds");
+        return res.data
+    }catch(error){
+        throw new Error("Cant fetch dog breeds...")
+    }
+}
