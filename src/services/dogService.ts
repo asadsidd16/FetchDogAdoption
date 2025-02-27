@@ -28,7 +28,7 @@ export const fetchDogsId = async (filters: {
     if (filters.sort) params.append("sort", filters.sort);
 
     const res = await api.get(`/dogs/search?${params.toString()}`);
-    console.log("RES", res);
+
     return res.data;
   } catch (error) {
     throw new Error("Cant fetch dogs...");

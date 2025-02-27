@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import AlertDisplaySnackbar from "../components/AlertDisplay";
 import ImageListDog from "../components/ImageList";
 import BreedFilter from "../components/BreedFilter";
+import Pagination from "@mui/material/Pagination";
 import {
   fetchDogsId,
   fetchDogsData,
@@ -95,7 +96,9 @@ const Home = () => {
           <ImageListDog key={dog.id} dog={dog} />
         ))}
       </div>
-
+      <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
+        <Pagination count={10} color="primary" />
+      </div>
       <AlertDisplaySnackbar
         message={error}
         open={openAlert}
