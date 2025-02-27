@@ -19,7 +19,7 @@ const Home = () => {
   const [error, setError] = useState<string>("");
   const [openAlert, setOpenAlert] = useState<boolean>(false);
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const [allDogBreeds, setAllDogBreeds] = useState<any>([]);
+  const [allDogBreeds, setAllDogBreeds] = useState<string[]>([]);
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
 
   const handleLogout = async () => {
@@ -47,6 +47,7 @@ const Home = () => {
       // Fetch dog data from API and return as an array of Dog objects
       const allDogsId = await fetchDogsId(params);
 
+      //fetches dog data off ids returned
       if (allDogsId.resultIds && allDogsId.resultIds.length > 0) {
         const dogData = await fetchDogsData(allDogsId.resultIds);
         setAllDogs(dogData);
@@ -76,7 +77,7 @@ const Home = () => {
   return (
     <div>
       <Button onClick={handleLogout}>Logout</Button>
-      <div>
+      <div style={{ width: "100%" }}>
         <BreedFilter
           breeds={allDogBreeds}
           selectedBreeds={selectedBreeds}

@@ -33,41 +33,81 @@ const ImageListDog = ({ dog }: CardProps) => {
       <div
         style={{
           height: "25%",
-          padding: "12px",
+          padding: "2px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          background: "white",
         }}
       >
         <h3
           style={{
             margin: 0,
-            fontSize: "16px",
+            fontSize: "12px",
             fontWeight: "bold",
             whiteSpace: "nowrap",
             overflow: "hidden",
-            textOverflow: "ellipsis", // Prevents long names from breaking the layout
+            textOverflow: "ellipsis",
             width: "100%",
+            marginBottom: 10,
           }}
         >
           {dog.name}
         </h3>
-        <p
+        <div
           style={{
-            margin: 0,
-            fontSize: "14px",
-            color: "#666",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis", // Prevents long breed names from breaking
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
             width: "100%",
+            gap: "8px",
+            justifyContent: "center",
           }}
         >
-          {dog.breed}
-        </p>
+          <p
+            style={{
+              margin: 0,
+              fontSize: "14px",
+              color: "#666",
+              whiteSpace: "normal",
+              overflow: "visible",
+              textOverflow: "unset",
+              wordBreak: "break-word",
+              maxWidth: "100%",
+            }}
+          >
+            {dog.breed}
+          </p>
+          <p
+            style={{
+              margin: 0,
+              fontSize: "14px",
+              color: "#666",
+              whiteSpace: "normal",
+              overflow: "visible",
+              textOverflow: "unset",
+              wordBreak: "break-word",
+              maxWidth: "100%",
+            }}
+          >
+            {dog.age} years
+          </p>
+          <p
+            style={{
+              margin: 0,
+              fontSize: "14px",
+              color: "#666",
+              whiteSpace: "normal",
+              overflow: "visible",
+              textOverflow: "unset",
+              wordBreak: "break-word",
+              maxWidth: "100%",
+            }}
+          >
+            {dog.zip_code}
+          </p>
+        </div>
       </div>
     </div>
   );

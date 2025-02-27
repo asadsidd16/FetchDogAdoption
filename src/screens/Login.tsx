@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { login } from "../services/authService";
+import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
@@ -8,12 +8,6 @@ import AlertDisplaySnackbar from "../components/AlertDisplay";
 
 import styled from "styled-components";
 
-const ErrorText = styled.p`
-  color: red;
-  font-size: 14px;
-  font-family: "Roboto", sans-serif;
-`;
-
 const HeaderText = styled.p`
   font-size: 28px;
   font-weight: 500;
@@ -21,13 +15,14 @@ const HeaderText = styled.p`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [openAlert, setOpenAlert] = useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   const handleSubmitLogin = async (e: React.FormEvent) => {
     e.preventDefault();

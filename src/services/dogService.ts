@@ -1,5 +1,5 @@
 import api from "./api";
-import { Dog, DogSearchResponse, FetchDogsParams } from "../types";
+import { Dog, DogSearchResponse } from "../types";
 
 export const fetchDogsId = async (filters: {
   breeds?: string[];
@@ -44,7 +44,7 @@ export const fetchDogsData = async (ids: string[]): Promise<Dog[]> => {
   }
 };
 
-export const fetchDogsBreed = async (): Promise<Dog[]> => {
+export const fetchDogsBreed = async (): Promise<string[]> => {
   try {
     const res = await api.get("/dogs/breeds");
     return res.data;

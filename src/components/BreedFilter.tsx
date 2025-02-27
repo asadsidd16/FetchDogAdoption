@@ -5,10 +5,10 @@ const BreedFilter = ({ breeds, selectedBreeds, setSelectedBreeds }: any) => {
   return (
     <Autocomplete
       multiple
-      options={breeds} // List of breed names (array of strings)
-      value={selectedBreeds} // Currently selected breeds (should be an array)
+      options={breeds}
+      value={selectedBreeds}
       onChange={(event, newValue) => {
-        setSelectedBreeds(newValue); // Update selected breeds
+        setSelectedBreeds(newValue);
       }}
       renderInput={(params) => (
         <TextField {...params} label="Filter by Breed" />
