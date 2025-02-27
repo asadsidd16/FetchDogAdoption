@@ -38,8 +38,13 @@ const Home = () => {
 
   const fetchAllDogs = async () => {
     try {
+      const params = {
+        breeds: selectedBreeds,
+        size: 25,
+        sort: "age:asc",
+      };
       // Fetch dog data from API and return as an array of Dog objects
-      const allDogsId = await fetchDogsId();
+      const allDogsId = await fetchDogsId(params);
 
       if (allDogsId.resultIds && allDogsId.resultIds.length > 0) {
         const dogData = await fetchDogsData(allDogsId.resultIds);
@@ -65,7 +70,7 @@ const Home = () => {
   useEffect(() => {
     fetchAllDogs();
     fetchAllDogBreeds();
-  }, []);
+  }, [selectedBreeds]);
 
   return (
     <div>
