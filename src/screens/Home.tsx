@@ -5,21 +5,28 @@ import ImageListDog from "../components/ImageList";
 import BreedFilter from "../components/BreedFilter";
 import LoadingSkeleton from "../components/LoadingSkeleton";
 import Pagination from "@mui/material/Pagination";
+import MatchModal from "../components/MatchModal";
+import { useNavigate } from "react-router-dom";
+
 import {
   fetchDogsId,
   fetchDogsData,
   fetchDogsBreed,
 } from "../services/dogService";
 import { logout } from "../services/authService";
-import { useNavigate } from "react-router-dom";
 import { Dog } from "../types/dog";
+import { dogsMatch } from "../services/dogService";
+import { useDog } from "../hooks/useDog";
 
 const Home = () => {
   const navigate = useNavigate();
+  const { listOfDogsMatch } = useDog();
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [matchLoading, setMatchLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [openAlert, setOpenAlert] = useState<boolean>(false);
+  const [openMatchModal, setOpenMatchModal] = useState<boolean>(false);
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
   const [allDogBreeds, setAllDogBreeds] = useState<string[]>([]);
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
@@ -78,6 +85,21 @@ const Home = () => {
     }
   };
 
+  const handleMatch = async () => {
+    setMatchLoading(true);
+    try {
+      const matchRes = await dogsMatch(listOfDogsMatch);
+      if (matchRes && matchRes.match) {
+        setOpenMatchModal(true);
+      }
+    } catch (error) {
+      setOpenAlert(true);
+      setError((error as Error).message);
+    } finally {
+      setMatchLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchAllDogs();
     fetchAllDogBreeds();
@@ -92,6 +114,9 @@ const Home = () => {
           selectedBreeds={selectedBreeds}
           setSelectedBreeds={setSelectedBreeds}
         />
+        <Button onClick={handleMatch} variant="text">
+          Ready to find your match?
+        </Button>
       </div>
       {loading ? (
         <div
@@ -118,6 +143,7 @@ const Home = () => {
       <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
         <Pagination count={10} color="primary" />
       </div>
+      <MatchModal open={openMatchModal} setOpen={setOpenMatchModal} />
       <AlertDisplaySnackbar
         message={error}
         open={openAlert}

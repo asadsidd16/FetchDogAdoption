@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Dog } from "../types/dog";
+
+import { useDog } from "../hooks/useDog";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-
-import { dogsMatch } from "../services/dogService";
 interface CardProps {
   dog: Dog;
 }
 
 const ImageListDog = ({ dog }: CardProps) => {
-  const [listOfFavorites, setListOfFavorites] = useState<string[]>([]);
+  const { listOfDogsMatch, setListOfDogsMatch } = useDog();
 
-  const isLiked = listOfFavorites.includes(dog.id);
+  const isLiked = listOfDogsMatch.includes(dog.id);
 
   const toggleFavorite = (id: string) => {
-    setListOfFavorites((prevList) =>
+    setListOfDogsMatch((prevList: string[]) =>
       prevList.includes(id)
         ? prevList.filter((favorite) => favorite !== id)
         : [...prevList, id]
@@ -23,14 +23,14 @@ const ImageListDog = ({ dog }: CardProps) => {
   };
 
   const deleteFromFavorite = (id: string) => {
-    setListOfFavorites((prevList) =>
+    setListOfDogsMatch((prevList: string[]) =>
       prevList.filter((favorite) => favorite !== id)
     );
   };
 
   useEffect(() => {
-    console.log("list", listOfFavorites);
-  }, [listOfFavorites]);
+    console.log("list", listOfDogsMatch);
+  }, [listOfDogsMatch]);
 
   return (
     <div
