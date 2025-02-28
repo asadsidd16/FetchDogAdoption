@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dog } from "../types/dog";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
@@ -9,7 +10,28 @@ interface CardProps {
 }
 
 const ImageListDog = ({ dog }: CardProps) => {
-  const [like, setLike] = useState<boolean>(false);
+  const [listOfFavorites, setListOfFavorites] = useState<string[]>([]);
+
+  const isLiked = listOfFavorites.includes(dog.id);
+
+  const toggleFavorite = (id: string) => {
+    setListOfFavorites((prevList) =>
+      prevList.includes(id)
+        ? prevList.filter((favorite) => favorite !== id)
+        : [...prevList, id]
+    );
+  };
+
+  const deleteFromFavorite = (id: string) => {
+    setListOfFavorites((prevList) =>
+      prevList.filter((favorite) => favorite !== id)
+    );
+  };
+
+  useEffect(() => {
+    console.log("list", listOfFavorites);
+  }, [listOfFavorites]);
+
   return (
     <div
       style={{
@@ -115,10 +137,20 @@ const ImageListDog = ({ dog }: CardProps) => {
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "end", padding: 5 }}>
-        {like ? (
-          <FavoriteIcon fontSize="small" />
+        {isLiked ? (
+          <span
+            onClick={() => deleteFromFavorite(dog.id)}
+            style={{ cursor: "pointer" }}
+          >
+            <FavoriteIcon fontSize="small" />
+          </span>
         ) : (
-          <FavoriteBorderOutlinedIcon fontSize="small" />
+          <span
+            onClick={() => toggleFavorite(dog.id)}
+            style={{ cursor: "pointer" }}
+          >
+            <FavoriteBorderOutlinedIcon fontSize="small" />
+          </span>
         )}
       </div>
     </div>

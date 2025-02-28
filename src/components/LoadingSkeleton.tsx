@@ -7,20 +7,6 @@ const LoadingSkeleton = () => {
       {[...Array(skeletonCount)].map((_, index) => (
         <div>
           <Skeleton key={index} variant="rounded" width={275} height={320} />
-          <Skeleton
-            key={index}
-            variant="rounded"
-            width={275}
-            height={320}
-            sx={{ marginTop: 2 }}
-          />
-          <Skeleton
-            key={index}
-            variant="rounded"
-            width={275}
-            height={320}
-            sx={{ marginTop: 2 }}
-          />
         </div>
       ))}
     </div>
