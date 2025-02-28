@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import AlertDisplaySnackbar from "../components/AlertDisplay";
 import ImageListDog from "../components/ImageList";
 import BreedFilter from "../components/BreedFilter";
+import LoadingSkeleton from "../components/LoadingSkeleton";
 import Pagination from "@mui/material/Pagination";
 import {
   fetchDogsId,
@@ -16,6 +17,7 @@ import { Dog } from "../types/dog";
 const Home = () => {
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [openAlert, setOpenAlert] = useState<boolean>(false);
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
@@ -38,6 +40,7 @@ const Home = () => {
   };
 
   const fetchAllDogs = async () => {
+    setLoading(true);
     try {
       const params = {
         breeds: selectedBreeds,
@@ -55,6 +58,8 @@ const Home = () => {
     } catch (error) {
       setOpenAlert(true);
       setError((error as Error).message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,19 +89,28 @@ const Home = () => {
           setSelectedBreeds={setSelectedBreeds}
         />
       </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-          gap: "16px",
-          padding: "16px",
-          alignItems: "start",
-        }}
-      >
-        {allDogs.map((dog: Dog) => (
-          <ImageListDog key={dog.id} dog={dog} />
-        ))}
-      </div>
+      {loading ? (
+        <div
+          style={{ display: "flex", justifyContent: "center", marginTop: 15 }}
+        >
+          <LoadingSkeleton />
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+            gap: "16px",
+            padding: "16px",
+            alignItems: "start",
+          }}
+        >
+          {allDogs.map((dog: Dog) => (
+            <ImageListDog key={dog.id} dog={dog} />
+          ))}
+        </div>
+      )}
+
       <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
         <Pagination count={10} color="primary" />
       </div>
