@@ -12,3 +12,7 @@ export type DogSearchResponse = {
   resultIds: string[];
   total: number;
 };
+
+export type Match = {
+  match: string;
+};

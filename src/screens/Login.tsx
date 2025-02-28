@@ -30,6 +30,7 @@ const Login = () => {
     setLoading(true);
     try {
       await login(name, email);
+
       navigate("/home");
     } catch (error) {
       setOpenAlert(true);

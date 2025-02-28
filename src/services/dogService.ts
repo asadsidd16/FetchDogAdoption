@@ -52,3 +52,12 @@ export const fetchDogsBreed = async (): Promise<string[]> => {
     throw new Error("Cant fetch dog breeds...");
   }
 };
+
+export const dogsMatch = async (ids: string[]): Promise<string[]> => {
+  try {
+    const res = await api.post("/dogs/match", ids);
+    return res.data;
+  } catch (error) {
+    throw new Error("Cant match dogs...");
+  }
+};

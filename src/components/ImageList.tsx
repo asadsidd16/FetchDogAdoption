@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { Dog } from "../types/dog";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
+import { dogsMatch } from "../services/dogService";
 interface CardProps {
   dog: Dog;
 }
 
 const ImageListDog = ({ dog }: CardProps) => {
+  const [like, setLike] = useState<boolean>(false);
   return (
     <div
       style={{
@@ -108,6 +113,13 @@ const ImageListDog = ({ dog }: CardProps) => {
             {dog.zip_code}
           </p>
         </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "end", padding: 5 }}>
+        {like ? (
+          <FavoriteIcon fontSize="small" />
+        ) : (
+          <FavoriteBorderOutlinedIcon fontSize="small" />
+        )}
       </div>
     </div>
   );
