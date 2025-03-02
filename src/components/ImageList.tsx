@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Dog } from "../types/dog";
 
 import { useDog } from "../hooks/useDog";
@@ -27,10 +26,6 @@ const ImageListDog = ({ dog }: CardProps) => {
       prevList.filter((favorite) => favorite !== id)
     );
   };
-
-  useEffect(() => {
-    console.log("list", listOfDogsMatch);
-  }, [listOfDogsMatch]);
 
   return (
     <div

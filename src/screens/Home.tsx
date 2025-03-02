@@ -20,7 +20,7 @@ import { useDog } from "../hooks/useDog";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { listOfDogsMatch } = useDog();
+  const { listOfDogsMatch, setMatchedDog, setListOfDogsMatch } = useDog();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [matchLoading, setMatchLoading] = useState<boolean>(false);
@@ -90,6 +90,12 @@ const Home = () => {
     try {
       const matchRes = await dogsMatch(listOfDogsMatch);
       if (matchRes && matchRes.match) {
+        let arrayForDog = [];
+        arrayForDog.push(matchRes.match);
+        const dogData = await fetchDogsData(arrayForDog);
+
+        setMatchedDog(dogData);
+        setListOfDogsMatch([]);
         setOpenMatchModal(true);
       }
     } catch (error) {

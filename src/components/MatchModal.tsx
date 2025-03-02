@@ -1,8 +1,9 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+
+import { useDog } from "../hooks/useDog";
 
 const style = {
   position: "absolute",
@@ -11,9 +12,9 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius: "10px",
 };
 
 export default function MatchModal({
@@ -23,7 +24,7 @@ export default function MatchModal({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  //   const handleOpen = () => setOpen(true);
+  const { matchedDog } = useDog();
   const handleClose = () => setOpen(false);
 
   return (
@@ -35,12 +36,29 @@ export default function MatchModal({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Congrats!
+          <Typography
+            id="modal-modal-title"
+            variant="h5"
+            component="h2"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: 10,
+            }}
+          >
+            You matched with {matchedDog[0]?.name}!
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            We found you the perfect match!
-          </Typography>
+          <img
+            srcSet={`${matchedDog[0]?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+            src={`${matchedDog[0]?.img}?w=248&fit=crop&auto=format`}
+            alt={matchedDog[0]?.img}
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "75%",
+              objectFit: "cover",
+            }}
+          />
         </Box>
       </Modal>
     </div>
