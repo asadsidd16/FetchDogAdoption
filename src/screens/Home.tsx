@@ -34,6 +34,8 @@ const Home = () => {
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
   const [size, setSize] = useState<number>(25);
   const [sortOption, setSortOption] = useState<string>("breed:asc");
+  const [nextQuery, setNextQuery] = useState("");
+  const [prevQuery, setPrevQuery] = useState("");
 
   const handleLogout = async () => {
     try {
@@ -54,13 +56,14 @@ const Home = () => {
     setOpenAlert(false);
   };
 
-  const fetchAllDogs = async () => {
+  const fetchAllDogs = async (cursor = "") => {
     setLoading(true);
     try {
       const params = {
         breeds: selectedBreeds,
         size: size || 25,
         sort: sortOption || "breed:asc",
+        from: cursor,
       };
       // Fetch dog data from API and return as an array of Dog objects
       const allDogsId = await fetchDogsId(params);
@@ -70,6 +73,9 @@ const Home = () => {
         const dogData = await fetchDogsData(allDogsId.resultIds);
         setAllDogs(dogData);
       }
+      // Update next and prev queries for pagination
+      setNextQuery(allDogsId.next || "");
+      setPrevQuery(allDogsId.prev || "");
     } catch (error) {
       setOpenAlert(true);
       setError((error as Error).message);
@@ -107,6 +113,18 @@ const Home = () => {
       setError((error as Error).message);
     } finally {
       setMatchLoading(false);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (nextQuery) {
+      fetchAllDogs(nextQuery);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (prevQuery) {
+      fetchAllDogs(prevQuery);
     }
   };
 
@@ -151,9 +169,9 @@ const Home = () => {
         </div>
       )}
 
-      <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
-        <Pagination count={10} color="primary" />
-      </div>
+      {/* <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
+        <Pagination count={10} color="primary" onClick={handleNextPage} />
+      </div> */}
       <MatchModal open={openMatchModal} setOpen={setOpenMatchModal} />
       <AlertDisplaySnackbar
         message={error}

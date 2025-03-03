@@ -1,7 +1,17 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
-const BreedFilter = ({ breeds, selectedBreeds, setSelectedBreeds }: any) => {
+interface BreedFilterProps {
+  breeds: string[]; // Array of available breed options
+  selectedBreeds: string[]; // Array of currently selected breeds
+  setSelectedBreeds: (breeds: string[]) => void; // Function to update selected breeds
+}
+
+const BreedFilter = ({
+  breeds,
+  selectedBreeds,
+  setSelectedBreeds,
+}: BreedFilterProps) => {
   return (
     <Autocomplete
       multiple

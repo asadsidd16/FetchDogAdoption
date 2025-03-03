@@ -11,6 +11,7 @@ export type DogSearchResponse = {
   next: string;
   resultIds: string[];
   total: number;
+  prev: string;
 };
 
 export type Match = {
