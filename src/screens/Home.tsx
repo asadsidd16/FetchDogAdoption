@@ -6,7 +6,7 @@ import BreedFilter from "../components/BreedFilter";
 import LoadingSkeleton from "../components/LoadingSkeleton";
 import Pagination from "@mui/material/Pagination";
 import MatchModal from "../components/MatchModal";
-import { useNavigate } from "react-router-dom";
+import SortDropdown from "../components/SortDropdown";
 
 import {
   fetchDogsId,
@@ -17,6 +17,8 @@ import { logout } from "../services/authService";
 import { Dog } from "../types/dog";
 import { dogsMatch } from "../services/dogService";
 import { useDog } from "../hooks/useDog";
+
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -30,6 +32,8 @@ const Home = () => {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
   const [allDogBreeds, setAllDogBreeds] = useState<string[]>([]);
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
+  const [size, setSize] = useState<number>(25);
+  const [sortOption, setSortOption] = useState<string>("breed:asc");
 
   const handleLogout = async () => {
     try {
@@ -55,8 +59,8 @@ const Home = () => {
     try {
       const params = {
         breeds: selectedBreeds,
-        size: 25,
-        sort: "age:asc",
+        size: size || 25,
+        sort: sortOption || "breed:asc",
       };
       // Fetch dog data from API and return as an array of Dog objects
       const allDogsId = await fetchDogsId(params);
@@ -109,7 +113,7 @@ const Home = () => {
   useEffect(() => {
     fetchAllDogs();
     fetchAllDogBreeds();
-  }, [selectedBreeds]);
+  }, [selectedBreeds, sortOption]);
 
   return (
     <div>
@@ -123,6 +127,7 @@ const Home = () => {
         <Button onClick={handleMatch} variant="text">
           Ready to find your match?
         </Button>
+        <SortDropdown sortOption={sortOption} setSortOption={setSortOption} />
       </div>
       {loading ? (
         <div
