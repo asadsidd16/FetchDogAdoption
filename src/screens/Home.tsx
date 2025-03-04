@@ -7,21 +7,19 @@ import LoadingSkeleton from "../components/LoadingSkeleton";
 import Pagination from "@mui/material/Pagination";
 import MatchModal from "../components/MatchModal";
 import SortDropdown from "../components/SortDropdown";
+import Header from "../components/Header";
 
 import {
   fetchDogsId,
   fetchDogsData,
   fetchDogsBreed,
 } from "../services/dogService";
-import { logout } from "../services/authService";
+
 import { Dog } from "../types/dog";
 import { dogsMatch } from "../services/dogService";
 import { useDog } from "../hooks/useDog";
 
-import { useNavigate } from "react-router-dom";
-
 const Home = () => {
-  const navigate = useNavigate();
   const { listOfDogsMatch, setMatchedDog, setListOfDogsMatch } = useDog();
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,15 +34,6 @@ const Home = () => {
   const [sortOption, setSortOption] = useState<string>("breed:asc");
   const [nextQuery, setNextQuery] = useState("");
   const [prevQuery, setPrevQuery] = useState("");
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -134,18 +123,33 @@ const Home = () => {
   }, [selectedBreeds, sortOption]);
 
   return (
-    <div>
-      <Button onClick={handleLogout}>Logout</Button>
-      <div style={{ width: "100%" }}>
-        <BreedFilter
-          breeds={allDogBreeds}
-          selectedBreeds={selectedBreeds}
-          setSelectedBreeds={setSelectedBreeds}
-        />
+    <>
+      <Header />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          margin: 10,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap", // Allows wrapping if needed
+          }}
+        >
+          <BreedFilter
+            breeds={allDogBreeds}
+            selectedBreeds={selectedBreeds}
+            setSelectedBreeds={setSelectedBreeds}
+          />
+          <SortDropdown sortOption={sortOption} setSortOption={setSortOption} />
+        </div>
+
         <Button onClick={handleMatch} variant="text">
           Ready to find your match?
         </Button>
-        <SortDropdown sortOption={sortOption} setSortOption={setSortOption} />
       </div>
       {loading ? (
         <div
@@ -159,7 +163,7 @@ const Home = () => {
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
             gap: "16px",
-            padding: "16px",
+            padding: "10px",
             alignItems: "start",
           }}
         >
@@ -179,7 +183,7 @@ const Home = () => {
         onClose={handleClose}
         severity="error"
       />
-    </div>
+    </>
   );
 };
 

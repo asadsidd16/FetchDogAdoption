@@ -27,7 +27,7 @@ const DogLabel = ({ breed, age, zip }: DogLabelProps) => {
           style={{
             margin: 0,
             fontSize: "12px",
-            color: "#666",
+            color: "#000",
             whiteSpace: "normal",
             overflow: "visible",
             textOverflow: "unset",
@@ -49,7 +49,7 @@ const DogLabel = ({ breed, age, zip }: DogLabelProps) => {
           style={{
             margin: 0,
             fontSize: "12px",
-            color: "#666",
+            color: "#000",
           }}
         >
           {age} years
@@ -66,7 +66,7 @@ const DogLabel = ({ breed, age, zip }: DogLabelProps) => {
           style={{
             margin: 0,
             fontSize: "12px",
-            color: "#666",
+            color: "#000",
           }}
         >
           {zip} area code

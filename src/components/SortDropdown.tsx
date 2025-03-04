@@ -8,7 +8,7 @@ const SortDropdown = ({
   setSortOption: (value: string) => void;
 }) => {
   return (
-    <FormControl variant="outlined" style={{ minWidth: 150, marginBottom: 20 }}>
+    <FormControl variant="outlined" style={{ minWidth: 150, margin: 10 }}>
       <InputLabel>Sort By</InputLabel>
       <Select
         value={sortOption}

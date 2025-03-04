@@ -1,7 +1,7 @@
 import Skeleton from "@mui/material/Skeleton";
 
 const LoadingSkeleton = () => {
-  const skeletonCount = 4; // Number of skeletons to display
+  const skeletonCount = 6;
   return (
     <div style={{ display: "flex", gap: "10px" }}>
       {[...Array(skeletonCount)].map((_, index) => (

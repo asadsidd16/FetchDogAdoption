@@ -32,7 +32,7 @@ const ImageListDog = ({ dog }: CardProps) => {
     <div
       style={{
         width: "100%",
-        height: "320px",
+        height: "420px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -49,7 +49,7 @@ const ImageListDog = ({ dog }: CardProps) => {
         loading="lazy"
         style={{
           width: "100%",
-          height: "75%",
+          height: "70%",
           objectFit: "cover",
         }}
       />
@@ -66,8 +66,9 @@ const ImageListDog = ({ dog }: CardProps) => {
       >
         <h3
           style={{
+            color: "#757ce8",
             margin: 0,
-            fontSize: "12px",
+            fontSize: "15px",
             fontWeight: "bold",
             whiteSpace: "nowrap",
             overflow: "hidden",
@@ -82,10 +83,9 @@ const ImageListDog = ({ dog }: CardProps) => {
       </div>
       <div
         style={{
-          position: "absolute",
-          bottom: "5px",
-          right: "5px",
           padding: "5px",
+          display: "flex",
+          justifyContent: "right",
         }}
       >
         {isLiked ? (
