@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
+import Header from "../components/Header";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import AlertDisplaySnackbar from "../components/AlertDisplay";
@@ -51,46 +52,49 @@ const Login = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "10px",
-        padding: "10px",
-      }}
-    >
-      <HeaderText>Fetch</HeaderText>
-      <TextField
-        required
-        label="Name"
-        variant="outlined"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      ></TextField>
-      <TextField
-        required
-        label="Email"
-        variant="outlined"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      ></TextField>
-      <Button
-        variant="contained"
-        disabled={loading}
-        loading={loading}
-        onClick={handleSubmitLogin}
+    <>
+      <Header />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "10px",
+          padding: "10px",
+        }}
       >
-        Sign In
-      </Button>
-      <AlertDisplaySnackbar
-        message={error}
-        open={openAlert}
-        onClose={handleClose}
-        severity="error"
-      />
-    </div>
+        <HeaderText>Fetch</HeaderText>
+        <TextField
+          required
+          label="Name"
+          variant="outlined"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        ></TextField>
+        <TextField
+          required
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></TextField>
+        <Button
+          variant="contained"
+          disabled={loading}
+          loading={loading}
+          onClick={handleSubmitLogin}
+        >
+          Sign In
+        </Button>
+        <AlertDisplaySnackbar
+          message={error}
+          open={openAlert}
+          onClose={handleClose}
+          severity="error"
+        />
+      </div>
+    </>
   );
 };
 

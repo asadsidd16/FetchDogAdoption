@@ -87,6 +87,11 @@ const Home = () => {
   const handleMatch = async () => {
     setMatchLoading(true);
     try {
+      if (listOfDogsMatch.length <= 0) {
+        setOpenAlert(true);
+        setError("No dogs have been selected for matching");
+        return;
+      }
       const matchRes = await dogsMatch(listOfDogsMatch);
       if (matchRes && matchRes.match) {
         let arrayForDog = [];
@@ -123,7 +128,7 @@ const Home = () => {
   }, [selectedBreeds, sortOption]);
 
   return (
-    <>
+    <div style={{ background: "#10172a" }}>
       <Header />
       <div
         style={{
@@ -183,7 +188,7 @@ const Home = () => {
         onClose={handleClose}
         severity="error"
       />
-    </>
+    </div>
   );
 };
 

@@ -18,21 +18,27 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return localStorage.getItem("authToken") === "OK";
+  });
 
   useEffect(() => {
-    // Check if a token exists in localStorage
     const token = localStorage.getItem("authToken");
+
     setIsAuthenticated(!!token);
   }, []);
 
   const login = async (name: string, email: string) => {
     await authServiceLogin(name, email);
+    localStorage.setItem("authToken", "OK");
     setIsAuthenticated(true);
   };
 
-  const logout = () => {
-    authServiceLogout();
+  const logout = async () => {
+    await authServiceLogout();
+
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
     setIsAuthenticated(false);
   };
 

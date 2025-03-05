@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
-import { logout } from "../services/authService";
+import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const { isAuthenticated, logout } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -33,9 +35,11 @@ const Header = () => {
       >
         Fetch
       </div>
-      <Button variant="contained" onClick={handleLogout}>
-        Logout
-      </Button>
+      {isAuthenticated && (
+        <Button variant="contained" onClick={handleLogout}>
+          Logout
+        </Button>
+      )}
     </div>
   );
 };
