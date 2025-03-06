@@ -7,6 +7,7 @@ import LoadingSkeleton from "../components/LoadingSkeleton";
 import Pagination from "@mui/material/Pagination";
 import MatchModal from "../components/MatchModal";
 import SortDropdown from "../components/SortDropdown";
+import Dropdown from "../components/Dropdown";
 import Header from "../components/Header";
 
 import {
@@ -19,6 +20,8 @@ import { Dog } from "../types/dog";
 import { dogsMatch } from "../services/dogService";
 import { useDog } from "../hooks/useDog";
 
+const SIZE_OPTIONS = ["10", "25", "75", "100"];
+
 const Home = () => {
   const { listOfDogsMatch, setMatchedDog, setListOfDogsMatch } = useDog();
 
@@ -30,7 +33,8 @@ const Home = () => {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
   const [allDogBreeds, setAllDogBreeds] = useState<string[]>([]);
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
-  const [size, setSize] = useState<number>(25);
+  const [size, setSize] = useState<string>("25");
+  const [from, setFrom] = useState<string | null>("");
   const [sortOption, setSortOption] = useState<string>("breed:asc");
   const [nextQuery, setNextQuery] = useState("");
   const [prevQuery, setPrevQuery] = useState("");
@@ -45,14 +49,19 @@ const Home = () => {
     setOpenAlert(false);
   };
 
-  const fetchAllDogs = async (cursor = "") => {
+  const extractFromValueWithRegex = (nextUrl: string): string | null => {
+    const match = nextUrl.match(/from=(\d+)/);
+    return match ? match[1] : null;
+  };
+
+  const fetchAllDogs = async () => {
     setLoading(true);
     try {
       const params = {
         breeds: selectedBreeds,
-        size: size || 25,
+        size: size || "25",
         sort: sortOption || "breed:asc",
-        from: cursor,
+        from: from,
       };
       // Fetch dog data from API and return as an array of Dog objects
       const allDogsId = await fetchDogsId(params);
@@ -112,15 +121,18 @@ const Home = () => {
 
   const handleNextPage = () => {
     if (nextQuery) {
-      fetchAllDogs(nextQuery);
+      let from = extractFromValueWithRegex(nextQuery);
+
+      setFrom(from);
+      fetchAllDogs();
     }
   };
 
-  const handlePrevPage = () => {
-    if (prevQuery) {
-      fetchAllDogs(prevQuery);
-    }
-  };
+  // const handlePrevPage = () => {
+  //   if (prevQuery) {
+  //     fetchAllDogs(prevQuery);
+  //   }
+  // };
 
   useEffect(() => {
     fetchAllDogs();
@@ -128,7 +140,7 @@ const Home = () => {
   }, [selectedBreeds, sortOption]);
 
   return (
-    <div style={{ background: "#10172a" }}>
+    <div>
       <Header />
       <div
         style={{
@@ -150,6 +162,12 @@ const Home = () => {
             setSelectedBreeds={setSelectedBreeds}
           />
           <SortDropdown sortOption={sortOption} setSortOption={setSortOption} />
+          <Dropdown
+            allOptions={SIZE_OPTIONS}
+            option={size}
+            setOption={setSize}
+            label={"Select size"}
+          />
         </div>
 
         <Button onClick={handleMatch} variant="text">
@@ -181,6 +199,9 @@ const Home = () => {
       {/* <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
         <Pagination count={10} color="primary" onClick={handleNextPage} />
       </div> */}
+      <Button onClick={handleNextPage} variant="contained">
+        Next
+      </Button>
       <MatchModal open={openMatchModal} setOpen={setOpenMatchModal} />
       <AlertDisplaySnackbar
         message={error}

@@ -6,8 +6,8 @@ export const fetchDogsId = async (filters: {
   zipCodes?: string[];
   ageMin?: number;
   ageMax?: number;
-  size?: number;
-  from?: string;
+  size?: string;
+  from?: string | null;
   sort?: string;
 }): Promise<DogSearchResponse> => {
   try {

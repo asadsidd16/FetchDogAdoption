@@ -1,6 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
 import { useDog } from "../hooks/useDog";
@@ -59,6 +60,17 @@ export default function MatchModal({
               objectFit: "cover",
             }}
           />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: 10,
+            }}
+          >
+            <Button onClick={handleClose} variant="contained">
+              CLOSE
+            </Button>
+          </div>
         </Box>
       </Modal>
     </div>
