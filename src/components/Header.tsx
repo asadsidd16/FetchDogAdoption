@@ -36,8 +36,12 @@ const Header = () => {
         Fetch
       </div>
       {isAuthenticated && (
-        <Button variant="contained" onClick={handleLogout}>
-          Logout
+        <Button
+          variant="contained"
+          onClick={handleLogout}
+          sx={{ height: "40px" }}
+        >
+          Sign Out
         </Button>
       )}
     </div>

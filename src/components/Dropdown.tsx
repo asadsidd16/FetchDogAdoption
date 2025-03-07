@@ -12,7 +12,10 @@ const Dropdown = ({
   label: string;
 }) => {
   return (
-    <FormControl variant="outlined" style={{ minWidth: 150, margin: 10 }}>
+    <FormControl
+      variant="outlined"
+      style={{ minWidth: 150, marginRight: 10, marginBottom: 10 }}
+    >
       <InputLabel>{label}</InputLabel>
       <Select
         value={option}

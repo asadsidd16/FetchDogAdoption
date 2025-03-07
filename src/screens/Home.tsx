@@ -9,6 +9,7 @@ import MatchModal from "../components/MatchModal";
 import Dropdown from "../components/Dropdown";
 import Header from "../components/Header";
 import Stack from "@mui/material/Stack";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import {
   fetchDogsId,
@@ -157,6 +158,11 @@ const Home = () => {
   return (
     <div>
       <Header />
+      <BreedFilter
+        breeds={allDogBreeds}
+        selectedBreeds={selectedBreeds}
+        setSelectedBreeds={setSelectedBreeds}
+      />
       <div
         style={{
           display: "flex",
@@ -171,11 +177,6 @@ const Home = () => {
             flexWrap: "wrap", // Allows wrapping if needed
           }}
         >
-          <BreedFilter
-            breeds={allDogBreeds}
-            selectedBreeds={selectedBreeds}
-            setSelectedBreeds={setSelectedBreeds}
-          />
           <Dropdown
             allOptions={SORT_OPTIONS}
             option={sortOption}
@@ -189,10 +190,23 @@ const Home = () => {
             label={"Select size"}
           />
         </div>
-
-        <Button onClick={handleMatch} variant="text">
-          Ready to find your match?
-        </Button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textWrap: "nowrap",
+          }}
+        >
+          <Button
+            onClick={handleMatch}
+            variant="contained"
+            sx={{ height: "40px" }}
+            startIcon={<FavoriteIcon />}
+          >
+            Let's Match
+          </Button>
+        </div>
       </div>
       {loading ? (
         <div

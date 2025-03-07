@@ -23,7 +23,7 @@ const BreedFilter = ({
       renderInput={(params) => (
         <TextField {...params} label="Filter by Breed" />
       )}
-      style={{ width: "60vw", margin: 10 }}
+      style={{ margin: 10 }}
     />
   );
 };
