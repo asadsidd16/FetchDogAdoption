@@ -9,6 +9,7 @@ import MatchModal from "../components/MatchModal";
 import SortDropdown from "../components/SortDropdown";
 import Dropdown from "../components/Dropdown";
 import Header from "../components/Header";
+import Stack from "@mui/material/Stack";
 
 import {
   fetchDogsId,
@@ -38,6 +39,27 @@ const Home = () => {
   const [sortOption, setSortOption] = useState<string>("breed:asc");
   const [nextQuery, setNextQuery] = useState("");
   const [prevQuery, setPrevQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+
+    if (value > page && nextQuery) {
+      // Moving to the next page
+      let from = extractFromValueWithRegex(nextQuery);
+      setFrom(from);
+    } else if (value < page && prevQuery) {
+      // Moving to the previous page
+      let from = extractFromValueWithRegex(prevQuery);
+      setFrom(from);
+    }
+
+    fetchAllDogs();
+  };
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -74,6 +96,7 @@ const Home = () => {
       // Update next and prev queries for pagination
       setNextQuery(allDogsId.next || "");
       setPrevQuery(allDogsId.prev || "");
+      setTotalPages(Math.ceil(allDogsId.total / parseInt(size)));
     } catch (error) {
       setOpenAlert(true);
       setError((error as Error).message);
@@ -119,25 +142,10 @@ const Home = () => {
     }
   };
 
-  const handleNextPage = () => {
-    if (nextQuery) {
-      let from = extractFromValueWithRegex(nextQuery);
-
-      setFrom(from);
-      fetchAllDogs();
-    }
-  };
-
-  // const handlePrevPage = () => {
-  //   if (prevQuery) {
-  //     fetchAllDogs(prevQuery);
-  //   }
-  // };
-
   useEffect(() => {
     fetchAllDogs();
     fetchAllDogBreeds();
-  }, [selectedBreeds, sortOption]);
+  }, [selectedBreeds, sortOption, size]);
 
   return (
     <div>
@@ -196,12 +204,14 @@ const Home = () => {
         </div>
       )}
 
-      {/* <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
-        <Pagination count={10} color="primary" onClick={handleNextPage} />
-      </div> */}
-      <Button onClick={handleNextPage} variant="contained">
-        Next
-      </Button>
+      <Stack spacing={2} direction="row" justifyContent="center" margin={2}>
+        <Pagination
+          count={totalPages} // Total pages
+          page={page} // Current page
+          onChange={handlePageChange} // Handles page changes
+          color="primary"
+        />
+      </Stack>
       <MatchModal open={openMatchModal} setOpen={setOpenMatchModal} />
       <AlertDisplaySnackbar
         message={error}

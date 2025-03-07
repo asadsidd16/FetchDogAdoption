@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const token = localStorage.getItem("authToken");
 
-    setIsAuthenticated(!!token);
+    setIsAuthenticated(token === "OK");
   }, []);
 
   const login = async (name: string, email: string) => {
