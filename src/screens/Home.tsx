@@ -6,7 +6,6 @@ import BreedFilter from "../components/BreedFilter";
 import LoadingSkeleton from "../components/LoadingSkeleton";
 import Pagination from "@mui/material/Pagination";
 import MatchModal from "../components/MatchModal";
-import SortDropdown from "../components/SortDropdown";
 import Dropdown from "../components/Dropdown";
 import Header from "../components/Header";
 import Stack from "@mui/material/Stack";
@@ -22,6 +21,14 @@ import { dogsMatch } from "../services/dogService";
 import { useDog } from "../hooks/useDog";
 
 const SIZE_OPTIONS = ["10", "25", "75", "100"];
+const SORT_OPTIONS = [
+  { label: "Breed (A-Z)", value: "breed:asc" },
+  { label: "Breed (Z-A)", value: "breed:desc" },
+  { label: "Name (A-Z)", value: "name:asc" },
+  { label: "Name (Z-A)", value: "name:desc" },
+  { label: "Age (Youngest First)", value: "age:asc" },
+  { label: "Age (Oldest First)", value: "age:desc" },
+];
 
 const Home = () => {
   const { listOfDogsMatch, setMatchedDog, setListOfDogsMatch } = useDog();
@@ -169,7 +176,12 @@ const Home = () => {
             selectedBreeds={selectedBreeds}
             setSelectedBreeds={setSelectedBreeds}
           />
-          <SortDropdown sortOption={sortOption} setSortOption={setSortOption} />
+          <Dropdown
+            allOptions={SORT_OPTIONS}
+            option={sortOption}
+            setOption={setSortOption}
+            label={"Select sort"}
+          />
           <Dropdown
             allOptions={SIZE_OPTIONS}
             option={size}

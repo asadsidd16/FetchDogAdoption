@@ -8,7 +8,7 @@ const Dropdown = ({
 }: {
   option: string;
   setOption: (value: string) => void;
-  allOptions: string[];
+  allOptions: string[] | { label: string; value: string }[];
   label: string;
 }) => {
   return (
@@ -21,11 +21,18 @@ const Dropdown = ({
         }}
         label={label}
       >
-        {allOptions.map((item: string) => (
-          <MenuItem key={item} value={item}>
-            {item}
-          </MenuItem>
-        ))}
+        {Array.isArray(allOptions) &&
+          allOptions.map((item) =>
+            typeof item === "string" ? (
+              <MenuItem key={item} value={item}>
+                {item}
+              </MenuItem>
+            ) : (
+              <MenuItem key={item.value} value={item.value}>
+                {item.label}
+              </MenuItem>
+            )
+          )}
       </Select>
     </FormControl>
   );
