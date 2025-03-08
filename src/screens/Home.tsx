@@ -153,7 +153,7 @@ const Home = () => {
   useEffect(() => {
     fetchAllDogs();
     fetchAllDogBreeds();
-  }, [selectedBreeds, sortOption, size]);
+  }, [selectedBreeds, sortOption, size, page, from]);
 
   return (
     <div>
