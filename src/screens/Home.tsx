@@ -30,6 +30,7 @@ const SORT_OPTIONS = [
   { label: "Age (Youngest First)", value: "age:asc" },
   { label: "Age (Oldest First)", value: "age:desc" },
 ];
+const SKELETON_COUNT = 12;
 
 const Home = () => {
   const { listOfDogsMatch, setMatchedDog, setListOfDogsMatch } = useDog();
@@ -208,27 +209,21 @@ const Home = () => {
           </Button>
         </div>
       </div>
-      {loading ? (
-        <div
-          style={{ display: "flex", justifyContent: "center", marginTop: 15 }}
-        >
-          <LoadingSkeleton />
-        </div>
-      ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "16px",
-            padding: "10px",
-            alignItems: "start",
-          }}
-        >
-          {allDogs.map((dog: Dog) => (
-            <ImageListDog key={dog.id} dog={dog} />
-          ))}
-        </div>
-      )}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+          gap: "16px",
+          padding: "10px",
+          alignItems: "start",
+        }}
+      >
+        {loading
+          ? [...Array(SKELETON_COUNT)].map((_, index) => (
+              <LoadingSkeleton key={index} />
+            ))
+          : allDogs.map((dog: Dog) => <ImageListDog key={dog.id} dog={dog} />)}
+      </div>
 
       <Stack spacing={2} direction="row" justifyContent="center" margin={2}>
         <Pagination
