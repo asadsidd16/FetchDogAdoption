@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import { useAuth } from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { isAuthenticated, logout } = useAuth();
 
@@ -35,7 +36,7 @@ const Header = () => {
       >
         Fetch
       </div>
-      {isAuthenticated && (
+      {isAuthenticated && location.pathname !== "/" && (
         <Button
           variant="contained"
           onClick={handleLogout}
