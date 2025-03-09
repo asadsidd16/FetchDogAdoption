@@ -50,24 +50,26 @@ const Home = () => {
   const [prevQuery, setPrevQuery] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [paginationTriggered, setPaginationTriggered] = useState(false);
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
     setPage(value);
+    setPaginationTriggered(true);
 
+    let newFrom = from; // Keep track of the new "from" value
     if (value > page && nextQuery) {
       // Moving to the next page
-      let from = extractFromValueWithRegex(nextQuery);
-      setFrom(from);
+      newFrom = extractFromValueWithRegex(nextQuery);
     } else if (value < page && prevQuery) {
       // Moving to the previous page
-      let from = extractFromValueWithRegex(prevQuery);
-      setFrom(from);
+      newFrom = extractFromValueWithRegex(prevQuery);
     }
 
-    fetchAllDogs();
+    setFrom(newFrom); // Ensure `from` is updated immediately
+    fetchAllDogs(newFrom); // Pass newFrom directly to avoid state delay
   };
 
   const handleClose = (
@@ -85,24 +87,23 @@ const Home = () => {
     return match ? match[1] : null;
   };
 
-  const fetchAllDogs = async () => {
+  const fetchAllDogs = async (customFrom = from) => {
     setLoading(true);
     try {
       const params = {
         breeds: selectedBreeds,
         size: size || "25",
         sort: sortOption || "breed:asc",
-        from: from,
+        from: customFrom,
       };
-      // Fetch dog data from API and return as an array of Dog objects
+
       const allDogsId = await fetchDogsId(params);
 
-      //fetches dog data off ids returned
       if (allDogsId.resultIds && allDogsId.resultIds.length > 0) {
         const dogData = await fetchDogsData(allDogsId.resultIds);
         setAllDogs(dogData);
       }
-      // Update next and prev queries for pagination
+
       setNextQuery(allDogsId.next || "");
       setPrevQuery(allDogsId.prev || "");
       setTotalPages(Math.ceil(allDogsId.total / parseInt(size)));
@@ -152,9 +153,13 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (paginationTriggered) {
+      setPaginationTriggered(false); // Reset the flag after manual call
+      return;
+    }
     fetchAllDogs();
     fetchAllDogBreeds();
-  }, [selectedBreeds, sortOption, size, page, from]);
+  }, [selectedBreeds, sortOption, size, from]);
 
   return (
     <div>
@@ -227,9 +232,9 @@ const Home = () => {
 
       <Stack spacing={2} direction="row" justifyContent="center" margin={2}>
         <Pagination
-          count={totalPages} // Total pages
-          page={page} // Current page
-          onChange={handlePageChange} // Handles page changes
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
           color="primary"
         />
       </Stack>
