@@ -36,7 +36,6 @@ const Home = () => {
   const { listOfDogsMatch, setMatchedDog, setListOfDogsMatch } = useDog();
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [matchLoading, setMatchLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [openAlert, setOpenAlert] = useState<boolean>(false);
   const [openMatchModal, setOpenMatchModal] = useState<boolean>(false);
@@ -127,7 +126,6 @@ const Home = () => {
   };
 
   const handleMatch = async () => {
-    setMatchLoading(true);
     try {
       if (listOfDogsMatch.length <= 0) {
         setOpenAlert(true);
@@ -147,8 +145,6 @@ const Home = () => {
     } catch (error) {
       setOpenAlert(true);
       setError((error as Error).message);
-    } finally {
-      setMatchLoading(false);
     }
   };
 

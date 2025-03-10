@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Select, MenuItem, Menu } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const Dropdown = ({
   option,
