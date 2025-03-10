@@ -1,26 +1,18 @@
-#🐶 Dog Explorer App
+# 🐶 Dog Explorer App
 
-A React-based application that allows users to browse, filter, and sort a list of dogs based on breed, size, and other attributes.
+> **Find, filter, and sort your favorite dogs!**
 
-##Features
-Fetches and displays a list of dogs.
-Filters by breed, size, and sorting options.
-Implements pagination for better data handling.
+## Features
 
-##Tech Stack
-Frontend: React, Hooks (useEffect, useState)
-State Management: Local component state (Context API)
-Styling: (e.g.,  Styled components, CSS, etc.)
-API: Fetches dog data from an external API
+✔️ Fetches and displays dog breeds  
+✔️ Sorting & filtering options  
+✔️ Pagination for browsing
 
-##Project Structure
-/src
-  ├── components/            # UI components
-  ├── context/               # Context defined
-  ├── hooks/                 # Custom hooks
-  ├── routes/                # All navigation
-  ├── screens/               # Page components
-  ├── services/              # API calls 
-  ├── types/                 # types defined
-  ├── main.tsx               # Entry point
-  ├── App.tsx                # Main app file
+## Installation
+
+```bash
+git clone https://github.com/asadsidd16/FetchDogAdoption.git
+cd {{into project folder}}
+npm install
+npm run dev
+```
