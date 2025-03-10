@@ -6,14 +6,14 @@
 
 ✔️ Fetches and displays dog breeds  
 ✔️ Sorting & filtering options  
-✔️ Pagination for browsing
+✔️ Pagination for browsing  
 ✔️ Match with a dog
 
 ## Tech Stack
 
-✔️ Frontend: React, Hooks (useEffect, useState), TypeScript
-✔️ State Management: Local component state (Context API)
-✔️ Styling: (e.g., Styled components, inline CSS, etc.)
+✔️ Frontend: React, Hooks (useEffect, useState), TypeScript  
+✔️ State Management: Local component state (Context API)  
+✔️ Styling: (e.g., Styled components, inline CSS, etc.)  
 ✔️ API: Fetches dog data from an external API
 
 ## Installation
