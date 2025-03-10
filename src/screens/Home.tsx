@@ -157,7 +157,13 @@ const Home = () => {
       setPaginationTriggered(false); // Reset the flag after manual call
       return;
     }
-    fetchAllDogs();
+
+    if (selectedBreeds.length > 0 || sortOption || size) {
+      setPage(1); // Reset page to 1 when filters change
+      setFrom(null); // Reset pagination cursor
+    }
+
+    fetchAllDogs(null); // Fetch fresh data
     fetchAllDogBreeds();
   }, [selectedBreeds, sortOption, size, from]);
 
