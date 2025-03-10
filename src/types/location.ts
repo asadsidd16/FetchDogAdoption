@@ -26,3 +26,8 @@ export interface LocationObject {
   size?: number;
   from?: number;
 }
+
+export interface LocationResponseObject {
+  results: Location[];
+  total: number;
+}
