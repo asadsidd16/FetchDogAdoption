@@ -69,6 +69,12 @@ const Home = () => {
 
     setFrom(newFrom); // Ensure `from` is updated immediately
     fetchAllDogs(newFrom); // Pass newFrom directly to avoid state delay
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleClose = (
