@@ -1,4 +1,4 @@
-# 🐶 Dog Match App
+# 🐶 Dog Adoption App
 
 > **Find, filter, and sort your favorite dogs! Like available dogs and match with your next best friend!**
 
