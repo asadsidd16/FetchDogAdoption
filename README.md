@@ -1,6 +1,6 @@
-# 🐶 Dog Explorer App
+# 🐶 Dog Match App
 
-> **Find, filter, and sort your favorite dogs! Like available pups and match with your next best friend!**
+> **Find, filter, and sort your favorite dogs! Like available dogs and match with your next best friend!**
 
 ## Features
 
