@@ -186,7 +186,7 @@ const Home = () => {
           style={{
             display: "flex",
             flexDirection: "row",
-            flexWrap: "wrap", // Allows wrapping if needed
+            flexWrap: "wrap",
           }}
         >
           <Dropdown
@@ -201,23 +201,24 @@ const Home = () => {
             setOption={setSize}
             label={"Select size"}
           />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            textWrap: "nowrap",
-          }}
-        >
-          <Button
-            onClick={handleMatch}
-            variant="contained"
-            sx={{ height: "40px" }}
-            startIcon={<FavoriteIcon />}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textWrap: "nowrap",
+              marginBottom: 10,
+            }}
           >
-            Let's Match
-          </Button>
+            <Button
+              onClick={handleMatch}
+              variant="contained"
+              sx={{ height: "40px" }}
+              startIcon={<FavoriteIcon />}
+            >
+              Let's Match
+            </Button>
+          </div>
         </div>
       </div>
       <div
