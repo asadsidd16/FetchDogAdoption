@@ -17,7 +17,7 @@ const BreedFilter = ({
       multiple
       options={breeds}
       value={selectedBreeds}
-      onChange={(event, newValue) => {
+      onChange={(_event, newValue) => {
         setSelectedBreeds(newValue);
       }}
       renderInput={(params) => (

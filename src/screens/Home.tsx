@@ -52,7 +52,7 @@ const Home = () => {
   const [paginationTriggered, setPaginationTriggered] = useState(false);
 
   const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
+    _event: React.ChangeEvent<unknown>,
     value: number
   ) => {
     setPage(value);
@@ -72,7 +72,7 @@ const Home = () => {
   };
 
   const handleClose = (
-    event?: React.SyntheticEvent | Event,
+    _event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
     if (reason === "clickaway") {
