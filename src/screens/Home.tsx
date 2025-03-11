@@ -30,7 +30,7 @@ const SORT_OPTIONS = [
   { label: "Age (Youngest First)", value: "age:asc" },
   { label: "Age (Oldest First)", value: "age:desc" },
 ];
-const SKELETON_COUNT = 12;
+const SKELETON_COUNT = 25;
 
 const Home = () => {
   const { listOfDogsMatch, setMatchedDog, setListOfDogsMatch } = useDog();
