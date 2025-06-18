@@ -24,3 +24,8 @@ cd {{into project folder}}
 npm install
 npm run dev
 ```
+## Live Demo
+
+✔️ Use name and email to login
+
+https://fetch-dog-adoption.netlify.app/
